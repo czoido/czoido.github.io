@@ -10,6 +10,19 @@
     <link rel="stylesheet" href="https://czoido.github.io/css/main.min.6136193b5286cf53d3e09c43d3a152a08271f5fb78da7d79c5c4845fae0ec93a.css" />
 
     
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'G-THC4C7FDSJ', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Creating C&#43;&#43; Node Addons using N-API"/>
 <meta name="twitter:description" content="With Node.js addons we can load our C&#43;&#43; libraries as if they were ordinary Node.js modules. The recommended way to implement these addons is using the N-API. The N-API is delivered as a part of the Node.js distribution. since v8 and became stable in v10.
@@ -162,7 +175,7 @@ Studio projects, Ninja build files, and Makefiles.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">node-gyp configure
 </code></pre></div><p>Now you could go to the build folder and run directly the project files generated to compile the node addon or do it using node-gyp:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">node-gyp build
-</code></pre></div><p>Now, using this module in our Node.js application should be as simple as:</p>
+</code></pre></div><p>Using this module in our Node.js application should be as simple as:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// hello.js
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">hello_module</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;bindings&#39;</span>)(<span style="color:#e6db74">&#39;hello_world&#39;</span>);
 <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">hello_module</span>.<span style="color:#a6e22e">hello_world</span>());
