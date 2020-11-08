@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Carlos Zoido</title>
-    <link>https://czoido.github.io/posts/</link>
-    <description>Recent content in Posts on Carlos Zoido</description>
+    <title>javascript on Carlos Zoido</title>
+    <link>https://czoido.github.io/tags/javascript/</link>
+    <description>Recent content in javascript on Carlos Zoido</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 06 Nov 2020 12:31:18 +0100</lastBuildDate><atom:link href="https://czoido.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 06 Nov 2020 12:31:18 +0100</lastBuildDate><atom:link href="https://czoido.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Creating C&#43;&#43; Node Addons using N-API</title>
       <link>https://czoido.github.io/posts/creating-c&#43;&#43;-node-addons-using-conan/</link>
