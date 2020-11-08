@@ -9,10 +9,10 @@
     <lastBuildDate>Fri, 06 Nov 2020 12:31:18 +0100</lastBuildDate><atom:link href="https://czoido.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Creating C&#43;&#43; Node Addons using N-API</title>
-      <link>https://czoido.github.io/posts/creating-c&#43;&#43;-node-addons-using-conan/</link>
+      <link>https://czoido.github.io/posts/creating-c&#43;&#43;-node-addons-using-napi/</link>
       <pubDate>Fri, 06 Nov 2020 12:31:18 +0100</pubDate>
       
-      <guid>https://czoido.github.io/posts/creating-c&#43;&#43;-node-addons-using-conan/</guid>
+      <guid>https://czoido.github.io/posts/creating-c&#43;&#43;-node-addons-using-napi/</guid>
       <description>With Node.js addons we can load our C++ libraries as if they were ordinary Node.js modules. The recommended way to implement these addons is using the N-API. The N-API is delivered as a part of the Node.js distribution. since v8 and became stable in v10.
 One &amp;ldquo;Hello World&amp;rdquo; addon could look something like this:
 // hello.cpp #include &amp;lt;node.h&amp;gt; namespace demo { using v8::FunctionCallbackInfo; using v8::Isolate; using v8::Local; using v8::Object; using v8::String; using v8::Value; void HelloWorld(const FunctionCallbackInfo&amp;lt;Value&amp;gt;&amp;amp; args) { Isolate* isolate = args.</description>
