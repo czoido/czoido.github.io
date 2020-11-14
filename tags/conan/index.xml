@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>conan on Carlos Zoido</title>
+    <link>https://czoido.github.io/tags/conan/</link>
+    <description>Recent content in conan on Carlos Zoido</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 08 Nov 2020 13:08:06 +0100</lastBuildDate><atom:link href="https://czoido.github.io/tags/conan/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Adding dependencies to your Node.js native addons using Conan</title>
+      <link>https://czoido.github.io/posts/node-native-module-conan/</link>
+      <pubDate>Sun, 08 Nov 2020 13:08:06 +0100</pubDate>
+      
+      <guid>https://czoido.github.io/posts/node-native-module-conan/</guid>
+      <description>We have already covered how to write a simple C++ hello world native addon in a previous post. Now, we are going to add dependencies to that simple example, manage them with Conan and run the code in Node.js.
+If you are not familiar with Conan, please check the getting started in the documentation.
+As we explained in the previous post the native addons are usually built generating a project file for your build-system using node-gyp.</description>
+    </item>
+    
+  </channel>
+</rss>

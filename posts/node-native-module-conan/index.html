@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Adding dependencies to your Node.js native addons using Conan // Carlos Zoido</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.76.5" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Carlos Zoido" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://czoido.github.io/css/main.min.6136193b5286cf53d3e09c43d3a152a08271f5fb78da7d79c5c4845fae0ec93a.css" />
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-THC4C7FDSJ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-THC4C7FDSJ');
+    </script>
+  
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Adding dependencies to your Node.js native addons using Conan"/>
+<meta name="twitter:description" content="We have already covered how to write a simple C&#43;&#43; hello world native addon in a previous post. Now, we are going to add dependencies to that simple example, manage them with Conan and run the code in Node.js.
+If you are not familiar with Conan, please check the getting started in the documentation.
+As we explained in the previous post the native addons are usually built generating a project file for your build-system using node-gyp."/>
+
+    <meta property="og:title" content="Adding dependencies to your Node.js native addons using Conan" />
+<meta property="og:description" content="We have already covered how to write a simple C&#43;&#43; hello world native addon in a previous post. Now, we are going to add dependencies to that simple example, manage them with Conan and run the code in Node.js.
+If you are not familiar with Conan, please check the getting started in the documentation.
+As we explained in the previous post the native addons are usually built generating a project file for your build-system using node-gyp." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://czoido.github.io/posts/node-native-module-conan/" />
+<meta property="article:published_time" content="2020-11-08T13:08:06+01:00" />
+<meta property="article:modified_time" content="2020-11-08T13:08:06+01:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://czoido.github.io/"><img class="app-header-avatar" src="/avatar.jpg" alt="Carlos Zoido" /></a>
+      <h1>Carlos Zoido</h1>
+      <p>PhD. Industrial Engineering // Software developer // Co-founded The Big Banh</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://www.linkedin.com/in/czoido/" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="https://github.com/czoido" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/czoido" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://www.youtube.com/user/mrgalleta76" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-youtube">
+  <title>youtube</title>
+  <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+</svg></a>
+        
+      </div>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/">Home</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/aboutme">About Me</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/projects">Projects</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/publications">Publications</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/contact">Contact</a>
+      </nav>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Adding dependencies to your Node.js native addons using Conan</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Nov 8, 2020
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          4 min read
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+              <a class="tag" href="https://czoido.github.io/tags/conan/">conan</a>
+              <a class="tag" href="https://czoido.github.io/tags/c&#43;&#43;/">c&#43;&#43;</a>
+              <a class="tag" href="https://czoido.github.io/tags/javascript/">javascript</a>
+              <a class="tag" href="https://czoido.github.io/tags/node/">node</a>
+              <a class="tag" href="https://czoido.github.io/tags/gyp/">gyp</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <p>We have already covered how to write a simple C++ hello world native addon in a <a href="https://czoido.github.io/posts/creating-c++-node-addons-using-napi/">previous post</a>. Now, we are going to add dependencies to that simple
+example, manage them with <a href="https://docs.conan.io/en/latest/">Conan</a> and run the code in Node.js.</p>
+<p>If you are not familiar with Conan, please check the <a href="https://docs.conan.io/en/latest/getting_started.html">getting
+started</a> in the documentation.</p>
+<p>As we explained in the previous post the <a href="https://nodejs.org/api/addons.html">native addons</a> are
+usually built generating a project file for your build-system using node-gyp. The input file for
+<a href="https://github.com/nodejs/node-gyp">node-gyp</a> is
+<a href="https://github.com/nodejs/node-gyp#the-bindinggyp-file">binding.py</a>. This file contains the sources
+that will be compiled as well as all the compilation options for the project. It will also contain
+the information about which third-party libraries we want to link with and where are those libraries
+located.</p>
+<p>For example, if we want to add a dependency such as <a href="https://conan.io/center/yaml-cpp">yaml-cpp</a>
+library we should add a line like this to binding.gyp:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#e6db74">&#34;dependencies&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> [<span style="color:#e6db74">&#34;&lt;/path/to/library-info.gyp:yaml-cpp&#34;</span>]<span style="color:#960050;background-color:#1e0010">,</span>
+</code></pre></div><p>If you are familiar with CMake, this is something similar to a call to <code>target_link_libraries</code>.</p>
+<h4 id="using-a-custom-conan-generator-to-manage-the-dependencies-paths">Using a custom Conan generator to manage the dependencies paths</h4>
+<p>The dependencies field is a list of gyp files, each one of those containing information such as the
+headers and libraries folder location, compilation flags and so on. As this is exactly the
+information that a <a href="https://docs.conan.io/en/latest/reference/generators.html">Conan generator</a> is
+designed to provide, we will create a custom Conan generator to generate all the gyp files that will
+contain the information to link the third party libraries in our native C++ addon. Explaining how a
+custom Conan generator is created is out of the scope of this post, but you can read about it <a href="https://docs.conan.io/en/latest/reference/generators/custom.html#custom-generator">in
+Conan docs</a> and
+<a href="https://blog.conan.io/2019/07/24/C++-build-systems-new-integrations-in-Conan-package-manager.html">this
+blogpost</a>.
+We will use <a href="https://github.com/czoido/conan-gyp-generator">this minimal generator</a> for node-gyp.</p>
+<p>To use it, install the generator:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git clone https://github.com/czoido/conan-gyp-generator
+cd conan-gyp-generator
+conan config install gyp-generator.py -tf generators
+cd ..
+</code></pre></div><h4 id="building-the-native-addon">Building the native addon</h4>
+<p>Now that the custom generator is installed You can clone the sources for this example from <a href="https://github.com/czoido/conan-node-module">this
+GitHub repo</a>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git clone https://github.com/czoido/conan-node-module
+cd conan-node-module
+</code></pre></div><p>As you can see there&rsquo;s already a <em>binding.gyp</em> file with this contents:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">{</span>
+    <span style="color:#e6db74">&#34;targets&#34;</span>: <span style="color:#f92672">[{</span>
+        <span style="color:#e6db74">&#34;target_name&#34;</span>: <span style="color:#e6db74">&#34;conan_node_module&#34;</span>,
+        <span style="color:#e6db74">&#34;sources&#34;</span>: <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;main.cpp&#34;</span><span style="color:#f92672">]</span>,
+        <span style="color:#e6db74">&#34;dependencies&#34;</span>: <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;&lt;(module_root_dir)/conan_build/conanbuildinfo.gyp:yaml-cpp&#34;</span><span style="color:#f92672">]</span>,
+        <span style="color:#e6db74">&#34;conditions&#34;</span>: <span style="color:#f92672">[[</span>
+            <span style="color:#e6db74">&#34;OS==&#39;mac&#39;&#34;</span>, <span style="color:#f92672">{</span>
+                <span style="color:#e6db74">&#34;xcode_settings&#34;</span>: <span style="color:#f92672">{</span>
+                    <span style="color:#e6db74">&#34;GCC_ENABLE_CPP_EXCEPTIONS&#34;</span>: <span style="color:#e6db74">&#34;YES&#34;</span>
+                <span style="color:#f92672">}</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">]]</span>
+    <span style="color:#f92672">}]</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>There are several things to point out in this file:</p>
+<ul>
+<li><code>&lt;(module_root_dir)</code> will be expanded to the folder where we cloned the repository when invoking
+node-gyp.</li>
+<li><em>conanbuildinfo.gyp:yaml-cpp</em> is the output file of the Conan generator and <em>:yaml-cpp</em> is the way
+of telling node-gyp to add the information under <code>&quot;target_name&quot;: &quot;yaml-cpp&quot;,</code> from
+<em>conanbuildinfo.gyp</em>.</li>
+<li>Also, note that you can add some optional parameters conditioned to things like the operating
+system. Here, our project file enables cpp exceptions using <code>GCC_ENABLE_CPP_EXCEPTIONS</code>.</li>
+</ul>
+<p>You can also have a look at <em>main.cpp</em> containing the sources that use the yaml-cpp library. This file
+defines a function that will take a list of numbers as an argument and return its size using yaml-cpp
+library.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;yaml-cpp/yaml.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;node.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">namespace</span> demo
+{
+  <span style="color:#66d9ef">using</span> v8<span style="color:#f92672">::</span>FunctionCallbackInfo;
+  <span style="color:#66d9ef">using</span> v8<span style="color:#f92672">::</span>Isolate;
+  <span style="color:#66d9ef">using</span> v8<span style="color:#f92672">::</span>Local;
+  <span style="color:#66d9ef">using</span> v8<span style="color:#f92672">::</span>Object;
+  <span style="color:#66d9ef">using</span> v8<span style="color:#f92672">::</span>String;
+  <span style="color:#66d9ef">using</span> v8<span style="color:#f92672">::</span>Value;
+
+  <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">ParseYAML</span>(<span style="color:#66d9ef">const</span> FunctionCallbackInfo<span style="color:#f92672">&lt;</span>Value<span style="color:#f92672">&gt;</span> <span style="color:#f92672">&amp;</span>args)
+  {
+    Isolate <span style="color:#f92672">*</span>isolate <span style="color:#f92672">=</span> args.GetIsolate();
+    String<span style="color:#f92672">::</span>Utf8Value str(isolate, args[<span style="color:#ae81ff">0</span>]);
+    YAML<span style="color:#f92672">::</span>Node numbers_list <span style="color:#f92672">=</span> YAML<span style="color:#f92672">::</span>Load(std<span style="color:#f92672">::</span>string(<span style="color:#f92672">*</span>str));
+    args.GetReturnValue().Set(String<span style="color:#f92672">::</span>NewFromUtf8(isolate, std<span style="color:#f92672">::</span>to_string(numbers_list.size()).c_str()).ToLocalChecked());
+  }
+
+  <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Init</span>(Local<span style="color:#f92672">&lt;</span>Object<span style="color:#f92672">&gt;</span> exports)
+  {
+    NODE_SET_METHOD(exports, <span style="color:#e6db74">&#34;parse_yaml&#34;</span>, ParseYAML);
+  }
+
+  NODE_MODULE(NODE_GYP_MODULE_NAME, Init)
+
+}
+</code></pre></div><p>Also, have a look at the <em>conanfile.txt</em> in the main folder, containing the information of the
+dependencies, generators and options we want to use for this project:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#66d9ef">[requires]</span>
+<span style="color:#a6e22e">yaml-cpp/0.6.3</span>
+
+<span style="color:#66d9ef">[generators]</span>
+<span style="color:#a6e22e">node_gyp</span>
+<span style="color:#a6e22e">virtualrunenv</span>
+
+<span style="color:#66d9ef">[options]</span>
+<span style="color:#a6e22e">yaml-cpp:shared</span><span style="color:#f92672">=</span><span style="color:#e6db74">True</span>
+</code></pre></div><p>Note that we have under the generators section <code>node_gyp</code> and also <code>virtualrunenv</code>. The first will
+create the <em>conanbuildinfo.gyp</em> with the location of the libraries and the second will help us define
+some environment variables so that our application can find the shared libraries later.</p>
+<p>Then, use the Conan generator to create the files with information about the dependencies of the project:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir conan_build <span style="color:#f92672">&amp;&amp;</span> cd conan_build
+conan install .. --build<span style="color:#f92672">=</span>missing <span style="color:#f92672">&amp;&amp;</span> cd ..
+</code></pre></div><p>This will generate the <em>conanbuildinfo.gyp</em> file:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+    <span style="color:#f92672">&#34;targets&#34;</span>: [{
+        <span style="color:#f92672">&#34;target_name&#34;</span>: <span style="color:#e6db74">&#34;yaml-cpp&#34;</span>,
+        <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;&lt;(library)&#34;</span>,
+        <span style="color:#f92672">&#34;direct_dependent_settings&#34;</span>: {
+            <span style="color:#f92672">&#34;include_dirs&#34;</span>: [
+                <span style="color:#e6db74">&#34;/Users/carlos/.conan/data/yaml-cpp/0.6.3/_/_/package/ba3872b419f0b5f5948b43bc6817447b031fa997/include&#34;</span>,                    
+            ],
+            <span style="color:#f92672">&#34;libraries&#34;</span>: [
+                <span style="color:#e6db74">&#34;-lyaml-cpp&#34;</span>, 
+                <span style="color:#e6db74">&#34;-L/Users/carlos/.conan/data/yaml-cpp/0.6.3/_/_/package/ba3872b419f0b5f5948b43bc6817447b031fa997/lib&#34;</span>,
+                <span style="color:#e6db74">&#34;-Wl,-rpath,&lt;(output_dir)/build/Release/&#34;</span>
+            ]
+        }
+    }]
+}
+</code></pre></div><p>Now we can compile our native C++ addon. Calling npm install should do a call to <code>node-gyp rebuild</code>.
+You can also compile the addon calling direcly to node-gyp: ``node-gyp configure &amp;&amp; node-gyp build´</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm install
+source conan_build/activate_run.sh <span style="color:#75715e"># activate virtualrunenv to set DYLD_LIBRARY_PATH so that it finds dependencies .so</span>
+</code></pre></div><p>The output of the build should be the conan_node_module.node file that we can import in our node
+JavaScript applications. Check the code of index.js, a simple application that will use our native addon to count the number of elements of a list:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">my_module</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;bindings&#34;</span>)(<span style="color:#e6db74">&#34;conan_node_module&#34;</span>);
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">my_module</span>.<span style="color:#a6e22e">parse_yaml</span>(<span style="color:#e6db74">&#34;[1,3,4]&#34;</span>))
+</code></pre></div><p>Run the application and check the output:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">node index.js
+</code></pre></div>
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
