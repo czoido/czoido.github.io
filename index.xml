@@ -38,13 +38,13 @@ The N-API is delivered as a part of the Node.js distribution. since v8 and becam
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;} &lt;span style="color:#75715e"&gt;// namespace demo
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;After building this code, we will get a &lt;em&gt;hello_world.node&lt;/em&gt; file that is a dynamic library that wraps
 our &lt;code&gt;HelloWorld&lt;/code&gt; function. Using &lt;code&gt;require()&lt;/code&gt; in our JavaScript code we will import this C++ function
-to our Node.js application like this:&lt;/p&gt;</description></item><item><title>Some of my projects</title><link>https://czoido.github.io/projects/</link><pubDate>Fri, 06 Nov 2020 09:56:41 +0100</pubDate><guid>https://czoido.github.io/projects/</guid><description>&lt;p&gt;These are some project I have done during these years.&lt;/p&gt;
-&lt;h3 id="projection-mapping-software-and-multi-projector-correction-software"&gt;Projection mapping software and Multi-projector correction software&lt;/h3&gt;
-&lt;p&gt;In 2018 I decided to make a completely new application to calibrate Multi-Projector systems based on
-what I had learned &lt;a href="https://czoido.github.io/publications/"&gt;during my Ph.D&lt;/a&gt;. I also reused some of the algorithms
-from that software to make an automatic calibration system for Projection Mapping. Here are some
-videos of the results of that development. I planned to distribute some free demos of these
-applications once complete. Here are some videos of the results:&lt;/p&gt;</description></item><item><title>Publications</title><link>https://czoido.github.io/publications/</link><pubDate>Fri, 06 Nov 2020 09:56:35 +0100</pubDate><guid>https://czoido.github.io/publications/</guid><description>&lt;h3 id="automatic-correction-method-for-panoramic-multi-projector-displays"&gt;&lt;a href="https://www.revistadyna.com/Articulos/Ficha.aspx?idMenu=33094c58-1bb5-4163-8382-a0d0942862d2&amp;amp;Cod=5713&amp;amp;codigoacceso=d7c66d27-28ae-4e91-a0fa-8ed9cff041e0"&gt;Automatic correction method for panoramic multi-projector displays&lt;/a&gt;&lt;/h3&gt;
+to our Node.js application like this:&lt;/p&gt;</description></item><item><title>Some of my projects</title><link>https://czoido.github.io/projects/</link><pubDate>Fri, 06 Nov 2020 09:56:41 +0100</pubDate><guid>https://czoido.github.io/projects/</guid><description>&lt;p&gt;These are some projects I have worked on over the years.&lt;/p&gt;
+&lt;h3 id="the-big-banh"&gt;The Big Banh&lt;/h3&gt;
+&lt;p&gt;From late 2015, my business partner and I co-founded and ran The Big Banh, a tiny restaurant and
+takeaway in Malasaña built around the Vietnamese bánh mì. We approached it as both a culinary
+business and an engineering and product-design project: together we developed recipes, designed
+repeatable processes, organized the team, and built a compact production line around house-made
+pickles and sauces, freshly baked bread, charcoal finishing, and low-temperature cooking.&lt;/p&gt;</description></item><item><title>Publications</title><link>https://czoido.github.io/publications/</link><pubDate>Fri, 06 Nov 2020 09:56:35 +0100</pubDate><guid>https://czoido.github.io/publications/</guid><description>&lt;h3 id="automatic-correction-method-for-panoramic-multi-projector-displays"&gt;&lt;a href="https://www.revistadyna.com/Articulos/Ficha.aspx?idMenu=33094c58-1bb5-4163-8382-a0d0942862d2&amp;amp;Cod=5713&amp;amp;codigoacceso=d7c66d27-28ae-4e91-a0fa-8ed9cff041e0"&gt;Automatic correction method for panoramic multi-projector displays&lt;/a&gt;&lt;/h3&gt;
 &lt;h5 id="dyna-september-2013"&gt;DYNA (September 2013)&lt;/h5&gt;
 &lt;h4 id="abstract"&gt;Abstract&lt;/h4&gt;
 &lt;p&gt;In this paper we present an easy and novel method to calibrate a panoramic multi-projector display system. These kinds of displays have a wide range of applications in fields such as simulation, entertainment, marketing and data visualization.&lt;/p&gt;
