@@ -1,33 +1,41 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>gyp on Carlos Zoido</title>
-    <link>https://czoido.github.io/tags/gyp/</link>
-    <description>Recent content in gyp on Carlos Zoido</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sun, 08 Nov 2020 13:08:06 +0100</lastBuildDate><atom:link href="https://czoido.github.io/tags/gyp/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Adding dependencies to your Node.js native addons using Conan</title>
-      <link>https://czoido.github.io/posts/node-native-module-conan/</link>
-      <pubDate>Sun, 08 Nov 2020 13:08:06 +0100</pubDate>
-      
-      <guid>https://czoido.github.io/posts/node-native-module-conan/</guid>
-      <description>We have already covered how to write a simple C++ hello world native addon in a previous post. Now, we are going to add dependencies to that simple example, manage them with Conan and run the code in Node.js.
-If you are not familiar with Conan, please check the getting started in the documentation.
-As we explained in the previous post the native addons are usually built generating a project file for your build-system using node-gyp.</description>
-    </item>
-    
-    <item>
-      <title>Creating C&#43;&#43; Node Addons using N-API</title>
-      <link>https://czoido.github.io/posts/creating-c&#43;&#43;-node-addons-using-napi/</link>
-      <pubDate>Fri, 06 Nov 2020 12:31:18 +0100</pubDate>
-      
-      <guid>https://czoido.github.io/posts/creating-c&#43;&#43;-node-addons-using-napi/</guid>
-      <description>With Node.js addons we can load our C++ libraries as if they were ordinary Node.js modules. The recommended way to implement these addons is using the N-API. The N-API is delivered as a part of the Node.js distribution. since v8 and became stable in v10.
-One &amp;ldquo;Hello World&amp;rdquo; addon could look something like this:
-// hello.cpp #include &amp;lt;node.h&amp;gt; namespace demo { using v8::FunctionCallbackInfo; using v8::Isolate; using v8::Local; using v8::Object; using v8::String; using v8::Value; void HelloWorld(const FunctionCallbackInfo&amp;lt;Value&amp;gt;&amp;amp; args) { Isolate* isolate = args.</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Gyp on Carlos Zoido</title><link>https://czoido.github.io/tags/gyp/</link><description>Recent content in Gyp on Carlos Zoido</description><generator>Hugo</generator><language>en-US</language><lastBuildDate>Sun, 08 Nov 2020 13:08:06 +0100</lastBuildDate><atom:link href="https://czoido.github.io/tags/gyp/index.xml" rel="self" type="application/rss+xml"/><item><title>Adding dependencies to your Node.js native addons using Conan</title><link>https://czoido.github.io/posts/node-native-module-conan/</link><pubDate>Sun, 08 Nov 2020 13:08:06 +0100</pubDate><guid>https://czoido.github.io/posts/node-native-module-conan/</guid><description>&lt;p&gt;We have already covered how to write a simple C++ hello world native addon in a &lt;a href="https://czoido.github.io/posts/creating-c&amp;#43;&amp;#43;-node-addons-using-napi/"&gt;previous post&lt;/a&gt;. Now, we are going to add dependencies to that simple
+example, manage them with &lt;a href="https://docs.conan.io/en/latest/"&gt;Conan&lt;/a&gt; and run the code in Node.js.&lt;/p&gt;
+&lt;p&gt;If you are not familiar with Conan, please check the &lt;a href="https://docs.conan.io/en/latest/getting_started.html"&gt;getting
+started&lt;/a&gt; in the documentation.&lt;/p&gt;
+&lt;p&gt;As we explained in the previous post the &lt;a href="https://nodejs.org/api/addons.html"&gt;native addons&lt;/a&gt; are
+usually built generating a project file for your build-system using node-gyp. The input file for
+&lt;a href="https://github.com/nodejs/node-gyp"&gt;node-gyp&lt;/a&gt; is
+&lt;a href="https://github.com/nodejs/node-gyp#the-bindinggyp-file"&gt;binding.py&lt;/a&gt;. This file contains the sources
+that will be compiled as well as all the compilation options for the project. It will also contain
+the information about which third-party libraries we want to link with and where are those libraries
+located.&lt;/p&gt;</description></item><item><title>Creating C++ Node Addons using N-API</title><link>https://czoido.github.io/posts/creating-c++-node-addons-using-napi/</link><pubDate>Fri, 06 Nov 2020 12:31:18 +0100</pubDate><guid>https://czoido.github.io/posts/creating-c++-node-addons-using-napi/</guid><description>&lt;p&gt;With Node.js addons we can load our C++ libraries as if they were ordinary Node.js modules. The
+recommended way to implement these addons is using the &lt;a href="https://nodejs.org/api/n-api.html"&gt;N-API&lt;/a&gt;.
+The N-API is delivered as a part of the Node.js distribution. since v8 and became stable in v10.&lt;/p&gt;
+&lt;p&gt;One &amp;ldquo;Hello World&amp;rdquo; addon could look something like this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-cpp" data-lang="cpp"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;// hello.cpp
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;#include&lt;/span&gt; &lt;span style="color:#75715e"&gt;&amp;lt;node.h&amp;gt;&lt;/span&gt;&lt;span style="color:#75715e"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;namespace&lt;/span&gt; demo {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;using&lt;/span&gt; v8&lt;span style="color:#f92672"&gt;::&lt;/span&gt;FunctionCallbackInfo;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;using&lt;/span&gt; v8&lt;span style="color:#f92672"&gt;::&lt;/span&gt;Isolate;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;using&lt;/span&gt; v8&lt;span style="color:#f92672"&gt;::&lt;/span&gt;Local;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;using&lt;/span&gt; v8&lt;span style="color:#f92672"&gt;::&lt;/span&gt;Object;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;using&lt;/span&gt; v8&lt;span style="color:#f92672"&gt;::&lt;/span&gt;String;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;using&lt;/span&gt; v8&lt;span style="color:#f92672"&gt;::&lt;/span&gt;Value;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;HelloWorld&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;const&lt;/span&gt; FunctionCallbackInfo&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;Value&lt;span style="color:#f92672"&gt;&amp;gt;&amp;amp;&lt;/span&gt; args) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; Isolate&lt;span style="color:#f92672"&gt;*&lt;/span&gt; isolate &lt;span style="color:#f92672"&gt;=&lt;/span&gt; args.GetIsolate();
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; args.GetReturnValue().Set(String&lt;span style="color:#f92672"&gt;::&lt;/span&gt;NewFromUtf8(isolate, &lt;span style="color:#e6db74"&gt;&amp;#34;hello world&amp;#34;&lt;/span&gt;).ToLocalChecked());
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;void&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Initialize&lt;/span&gt;(Local&lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt;Object&lt;span style="color:#f92672"&gt;&amp;gt;&lt;/span&gt; exports) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; NODE_SET_METHOD(exports, &lt;span style="color:#e6db74"&gt;&amp;#34;hello_world&amp;#34;&lt;/span&gt;, HelloWorld);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; NODE_MODULE(NODE_GYP_MODULE_NAME, Initialize)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;} &lt;span style="color:#75715e"&gt;// namespace demo
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;After building this code, we will get a &lt;em&gt;hello_world.node&lt;/em&gt; file that is a dynamic library that wraps
+our &lt;code&gt;HelloWorld&lt;/code&gt; function. Using &lt;code&gt;require()&lt;/code&gt; in our JavaScript code we will import this C++ function
+to our Node.js application like this:&lt;/p&gt;</description></item></channel></rss>
