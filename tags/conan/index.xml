@@ -1,11 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Conan on Carlos Zoido</title><link>https://czoido.github.io/tags/conan/</link><description>Recent content in Conan on Carlos Zoido</description><generator>Hugo</generator><language>en-US</language><lastBuildDate>Sun, 08 Nov 2020 13:08:06 +0100</lastBuildDate><atom:link href="https://czoido.github.io/tags/conan/index.xml" rel="self" type="application/rss+xml"/><item><title>Adding dependencies to your Node.js native addons using Conan</title><link>https://czoido.github.io/posts/node-native-module-conan/</link><pubDate>Sun, 08 Nov 2020 13:08:06 +0100</pubDate><guid>https://czoido.github.io/posts/node-native-module-conan/</guid><description>&lt;p&gt;We have already covered how to write a simple C++ hello world native addon in a &lt;a href="https://czoido.github.io/posts/creating-c&amp;#43;&amp;#43;-node-addons-using-napi/"&gt;previous post&lt;/a&gt;. Now, we are going to add dependencies to that simple
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Conan on Carlos Zoido</title><link>https://czoido.github.io/tags/conan/</link><description>Recent content in Conan on Carlos Zoido</description><generator>Hugo</generator><language>en-US</language><lastBuildDate>Sun, 08 Nov 2020 13:08:06 +0100</lastBuildDate><atom:link href="https://czoido.github.io/tags/conan/index.xml" rel="self" type="application/rss+xml"/><item><title>Adding dependencies to your Node.js native addons using Conan</title><link>https://czoido.github.io/posts/node-native-module-conan/</link><pubDate>Sun, 08 Nov 2020 13:08:06 +0100</pubDate><guid>https://czoido.github.io/posts/node-native-module-conan/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;This is an old article and is no longer maintained. It uses Conan 1, and its workflow and commands
+have not been updated for Conan 2.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;We have already covered how to write a simple C++ hello world native addon in a &lt;a href="https://czoido.github.io/posts/creating-c&amp;#43;&amp;#43;-node-addons-using-napi/"&gt;previous post&lt;/a&gt;. Now, we are going to add dependencies to that simple
 example, manage them with &lt;a href="https://docs.conan.io/en/latest/"&gt;Conan&lt;/a&gt; and run the code in Node.js.&lt;/p&gt;
 &lt;p&gt;If you are not familiar with Conan, please check the &lt;a href="https://docs.conan.io/en/latest/getting_started.html"&gt;getting
-started&lt;/a&gt; in the documentation.&lt;/p&gt;
-&lt;p&gt;As we explained in the previous post the &lt;a href="https://nodejs.org/api/addons.html"&gt;native addons&lt;/a&gt; are
-usually built generating a project file for your build-system using node-gyp. The input file for
-&lt;a href="https://github.com/nodejs/node-gyp"&gt;node-gyp&lt;/a&gt; is
-&lt;a href="https://github.com/nodejs/node-gyp#the-bindinggyp-file"&gt;binding.py&lt;/a&gt;. This file contains the sources
-that will be compiled as well as all the compilation options for the project. It will also contain
-the information about which third-party libraries we want to link with and where are those libraries
-located.&lt;/p&gt;</description></item></channel></rss>
+started&lt;/a&gt; in the documentation.&lt;/p&gt;</description></item></channel></rss>
